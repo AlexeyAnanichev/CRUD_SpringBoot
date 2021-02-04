@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <style type="text/css">
+        TABLE {
+            width: 300px;
+            border: 1px solid black;
+        }
+
+        TD, TH {
+            padding: 3px;
+            border: 1px solid black;
+        }
+
+        TH {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${userInfo.getUsername()}"></h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Username</th>
+    </tr>
+    <tr th:each="user : ${userInfo}">
+        <td th:utext="${user.getId()}">ID</td>
+        <td th:utext="${user.getName()}">Name</td>
+        <td th:utext="${user.getLastName()}">Last name</td>
+        <td th:utext="${user.getAge()}">Age</td>
+        <td th:utext="${user.getUsername()}">Username</td>
+    </tr>
+</table>
+<br>
+<a href="javascript:history.back()" title="Return to previous page"> Return to previous page </a>
+<br>
+<form th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
+</body>
+</html>
