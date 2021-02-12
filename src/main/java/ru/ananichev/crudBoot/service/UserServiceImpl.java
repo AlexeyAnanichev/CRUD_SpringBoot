@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void saveUser(User user, Set<Role> roles) {
-            user.setRoles(roles);
-            userDAO.saveUser(user);
+        user.setRoles(roles);
+        userDAO.saveUser(user);
     }
 
     @Transactional
@@ -46,8 +46,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void updateUser(User user, Set<Role> roles) {
-        user.setRoles(roles);
+    public void updateUser(User user) {
         userDAO.updateUser(user);
     }
 
@@ -66,6 +65,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userDAO.getUserByName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("User $s not found", username));
+        }
+        return user;
+    }
+
+    @Transactional
+    @Override
+    public User getCurrentUser(String username) {
         User user = userDAO.getUserByName(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User $s not found", username));

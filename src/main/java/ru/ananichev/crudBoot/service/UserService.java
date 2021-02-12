@@ -1,7 +1,6 @@
 package ru.ananichev.crudBoot.service;
 
 
-
 import ru.ananichev.crudBoot.model.Role;
 import ru.ananichev.crudBoot.model.User;
 
@@ -16,9 +15,11 @@ public interface UserService {
 
     List<User> getAllUsers();
 
-    void updateUser(User user, Set<Role> roles);
+    void updateUser(User user);
 
     User getUser(long id);
 
     Role getRoleByName(String name);
+
+    User getCurrentUser(String username);
 }

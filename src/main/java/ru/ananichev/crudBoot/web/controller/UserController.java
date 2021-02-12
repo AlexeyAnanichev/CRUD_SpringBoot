@@ -13,32 +13,34 @@ import ru.ananichev.crudBoot.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
-    private final UserDetailsService userDetailsService;
 
     public UserController(UserService userService,
-                          @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+                          @Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService){
         this.userService = userService;
-        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping("/")
     public String index() {
-        return "hello";
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 
     @GetMapping("/admin")
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("userList", userService.getAllUsers());
         model.addAttribute("user", new User());
+        principal.getName();
+        model.addAttribute("currentUser", userService.getCurrentUser(principal.getName()));
         return "/admin/users";
     }
 
@@ -57,36 +59,28 @@ public class UserController {
     @GetMapping("/user")
     public String getUser(Model model, Principal principal) {
         principal.getName();
-        model.addAttribute("userInfo", userDetailsService.loadUserByUsername(principal.getName()));
+        model.addAttribute("currentUser", userService.getCurrentUser(principal.getName()));
         return "user";
     }
 
     @DeleteMapping("/admin/{id}")
-   // @ResponseBody
     public String deleteUser(@PathVariable("id") long id) {
         userService.removeUserById(id);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/update/{id}")
-    public String updatePage(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "admin/update";
-    }
-
-    @PostMapping(value = "/admin/edit")
-    public String updateUser(@ModelAttribute @Valid User user, BindingResult bindingResult,
-                             @RequestParam("roles") String[] roles) {
-        if (bindingResult.hasErrors()) return "/admin/update/{id}";
-        Set<Role> roleSet = new HashSet<>();
-        for (String role : roles) {
-            roleSet.add(userService.getRoleByName(role));
+    @PostMapping(value = "/admin/edit/{id}")
+    public String update(@ModelAttribute("user") User user, @RequestParam("editRoles") String[] roles) {
+        Set<Role> roleList = new HashSet<Role>();;
+        for(String r : roles) {
+            roleList.add(userService.getRoleByName(r));
         }
-        userService.updateUser(user, roleSet);
+        user.setRoles(roleList);
+        userService.updateUser(user);
         return "redirect:/admin";
     }
 
-    @RequestMapping(value = "hello", method = RequestMethod.GET)
+        @RequestMapping(value = "hello", method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         List<String> messages = new ArrayList<>();
         messages.add("Hello!");
@@ -94,10 +88,6 @@ public class UserController {
         model.addAttribute("messages", messages);
         return "hello";
     }
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
-    }
 }
+
 

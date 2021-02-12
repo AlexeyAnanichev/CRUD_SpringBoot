@@ -1,0 +1,12 @@
+.btn {
+    text-align: left !important;
+    padding: 10px;
+}
+
+.gray {
+    background: #F7F7F7;
+}
+
+A {
+    text-decoration: none; /* Убирает подчеркивание для ссылок */
+}
