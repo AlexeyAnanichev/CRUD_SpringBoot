@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, blog-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div id="users"></div>
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="usersTable" role="tabpanel" aria-labelledby="user-tab">
+        <div class="card">
+            <div class="card-header">
+                <h4>All users</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th >#ID</th>
+                        <th >Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Username</th>
+                        <th>Roles</th>
+                    </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--            <tr>-->
+<!--                <td>${user.id}</td>-->
+<!--                <td>${user.name}</td>-->
+<!--                <td>${user.lastName}</td>-->
+<!--                <td>${user.age}</td>-->
+<!--                <td>${user.username}</td>-->
+<!--                <td>${user.roles}</td>-->
+<!--            </tr>-->
+
+
+<script src="output.js"></script>
+</body>
+</html>

@@ -42,6 +42,8 @@ public class UserController {
         principal.getName();
         model.addAttribute("currentUser", userService.getCurrentUser(principal.getName()));
         return "/admin/users";
+//        return "/admin/test";
+
     }
 
     @PostMapping(value = "/admin/add")
@@ -63,22 +65,22 @@ public class UserController {
         return "user";
     }
 
-    @DeleteMapping("/admin/{id}")
-    public String deleteUser(@PathVariable("id") long id) {
-        userService.removeUserById(id);
-        return "redirect:/admin";
-    }
+//    @DeleteMapping("/admin/{id}")
+//    public String deleteUser(@PathVariable("id") long id) {
+//        userService.removeUserById(id);
+//        return "redirect:/admin";
+//    }
 
-    @PostMapping(value = "/admin/edit/{id}")
-    public String update(@ModelAttribute("user") User user, @RequestParam("editRoles") String[] roles) {
-        Set<Role> roleList = new HashSet<Role>();;
-        for(String r : roles) {
-            roleList.add(userService.getRoleByName(r));
-        }
-        user.setRoles(roleList);
-        userService.updateUser(user);
-        return "redirect:/admin";
-    }
+//    @PostMapping(value = "/admin/edit/{id}")
+//    public String update(@ModelAttribute("user") User user, @RequestParam("editRoles") String[] roles) {
+//        Set<Role> roleList = new HashSet<>();;
+//        for(String role : roles) {
+//            roleList.add(userService.getRoleByName(role));
+//        }
+//        user.setRoles(roleList);
+//        userService.updateUser(user);
+//        return "redirect:/admin";
+//    }
 
         @RequestMapping(value = "hello", method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {

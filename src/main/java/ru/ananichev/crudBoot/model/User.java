@@ -1,5 +1,6 @@
 package ru.ananichev.crudBoot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,11 +18,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(min = 1, max = 50, message = "Field value out of range 1 to 50")
     @Column
     private String name;
 
-    @Size(min = 1, max = 50, message = "Field value out of range 1 to 50")
     @Column
     private String lastName;
 
@@ -29,15 +28,14 @@ public class User implements UserDetails {
     @Column
     private Byte age;
 
-    @Size(min = 1, max = 50, message = "Field value out of range 1 to 50")
     @Column
     private String username;
 
-    @Size(min = 1, max = 50, message = "Field value out of range 1 to 50")
     @Column
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)//Избавляет от LazyInitializationException после прохождения аутентификации
+//    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)//Избавляет от LazyInitializationException после прохождения аутентификации
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -137,4 +135,5 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }
