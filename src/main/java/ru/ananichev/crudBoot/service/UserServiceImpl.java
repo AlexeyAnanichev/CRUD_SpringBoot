@@ -10,7 +10,7 @@ import ru.ananichev.crudBoot.dao.UserDAO;
 import ru.ananichev.crudBoot.model.Role;
 import ru.ananichev.crudBoot.model.User;
 
-
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +27,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void saveUser(User user, Set<Role> roles) {
+    public void saveUser(User user) {
+        Set<Role> roles = new HashSet<>();
+        user.getRoles().forEach(role -> roles.add(getRoleByName(role.toString())));
         user.setRoles(roles);
         userDAO.saveUser(user);
     }
@@ -47,6 +49,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void updateUser(User user) {
+        Set<Role> roles = new HashSet<>();
+        user.getRoles().forEach(role -> roles.add(getRoleByName(role.toString())));
+        user.setRoles(roles);
         userDAO.updateUser(user);
     }
 

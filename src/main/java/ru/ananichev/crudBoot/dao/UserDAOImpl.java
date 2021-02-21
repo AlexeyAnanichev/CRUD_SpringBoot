@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDAOImpl implements UserDAO { //getRoleByName
+public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -35,12 +35,6 @@ public class UserDAOImpl implements UserDAO { //getRoleByName
     public Role getRoleByName(String name) {
         return entityManager.createQuery("FROM Role WHERE name = :name", Role.class)
                 .setParameter("name", name).getSingleResult();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<User> getAllRoles() {
-        return entityManager.createQuery("FROM Role").getResultList();
     }
 
     @Override

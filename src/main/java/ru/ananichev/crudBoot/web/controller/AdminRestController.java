@@ -1,9 +1,6 @@
 package ru.ananichev.crudBoot.web.controller;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ru.ananichev.crudBoot.model.Role;
 import ru.ananichev.crudBoot.model.User;
 import ru.ananichev.crudBoot.service.UserService;
 
@@ -18,21 +15,10 @@ public class AdminRestController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/showUsers")
+    @GetMapping(value = "/show")
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
-
-//    @GetMapping(value = "/admin/edit/{id}")
-//    public String update(@ModelAttribute("user") User user, @RequestParam("editRoles") String[] roles) {
-//        Set<Role> roleList = new HashSet<>();
-//        for (String role : roles) {
-//            roleList.add(userService.getRoleByName(role));
-//        }
-//        user.setRoles(roleList);
-//        userService.updateUser(user);
-//        return "redirect:/admin";
-//    }
 
     @GetMapping(value = "/user/{id}")
     public User getUserById(@PathVariable("id") int id) {
@@ -44,11 +30,15 @@ public class AdminRestController {
         userService.removeUserById(id);
     }
 
-    @PutMapping(value = "/rest/edit_user/{id}")
-    public ResponseEntity<User> addNewUser(@PathVariable("id") long id, @RequestBody User user) {
+    @PutMapping(value = "/edit/{id}")
+    public void editUser(@PathVariable("id") long id, @RequestBody User user) {
         user.setId(id);
         userService.updateUser(user);
-        return ResponseEntity.ok().body(user);
+    }
+
+    @PutMapping(value = "/save")
+    public void saveUser(@RequestBody User user) {
+        userService.saveUser(user);
     }
 
 

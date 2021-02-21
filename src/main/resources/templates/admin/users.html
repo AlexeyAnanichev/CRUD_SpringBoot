@@ -84,52 +84,47 @@
                         <H4>Add new user</H4>
                     </div>
                     <div class="card-body d-flex justify-content-center text-center">
-                        <form action="/admin/add" method="POST" th:object="${user}">
+                        <form>
                             <div class="form-group">
-                                <label for="name">First name</label>
-                                <input name="name" type="text" id="name" class="form-control"
-                                       placeholder="First name" th:value="*{name}" required>
-                                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+                                <label for="nameCreate">First name</label>
+                                <input name="name" type="text" id="nameCreate" class="form-control"
+                                       placeholder="First name" required>
                             </div>
                             <br>
                             <div class="form-group ">
-                                <label for="lastName">Last name</label>
-                                <input name="lastName" type="text" id="lastName" class="form-control"
-                                       placeholder="Last name" th:value="*{lastName}" required>
-                                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</div>
+                                <label for="lastNameCreate">Last name</label>
+                                <input name="lastName" type="text" id="lastNameCreate" class="form-control"
+                                       placeholder="Last name" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="age">Age</label>
-                                <input name="age" type="number" id="age" class="form-control"
-                                       placeholder="Age" th:value="*{age}" required>
-                                <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Error</div>
+                                <label for="ageCreate">Age</label>
+                                <input name="age" type="number" id="ageCreate" class="form-control"
+                                       placeholder="Age" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input name="username" type="text" id="username" class="form-control"
-                                       placeholder="Username" th:value="*{username}" required>
-                                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div>
+                                <label for="usernameCreate">Username</label>
+                                <input name="username" type="text" id="usernameCreate" class="form-control"
+                                       placeholder="Username" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input name="password" type="password" id="password" class="form-control"
-                                       placeholder="Password" th:value="*{password}" required>
-                                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+                                <label for="passwordCreate">Password</label>
+                                <input name="password" type="password" id="passwordCreate" class="form-control"
+                                       placeholder="Password" required>
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="roles">Role</label>
+                                <label for="rolesCreate">Role</label>
                                 <br>
-                                <select id="roles" name="roles" class="form-control" multiple size="2" required>
+                                <select id="rolesCreate" name="roles" class="form-control" multiple size="2" required>
                                     <option value="ROLE_ADMIN">ADMIN</option>
                                     <option value="ROLE_USER" selected="selected">USER</option>
                                 </select>
                             </div>
                             <br>
-                            <input type="submit" class="btn btn-success" value="Add new user">
+                            <input type="submit" class="btn btn-success" value="Add new user" onclick="saveUser()">
                         </form>
                     </div>
                 </div>
@@ -139,13 +134,7 @@
     <div class="col-1 gray"></div>
 </div>
 
-
 <!--=========================EDIT==============================-->
-
-<!--<button type="button" class="btn btn-info text-white" data-bs-toggle="modal"-->
-<!--        th:attr="data-bs-target='#usersWindow'+*{user.id}">Edit-->
-<!--</button>-->
-
 
 <div class="modal fade" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog" id="editModal">
@@ -221,16 +210,14 @@
                         data-bs-dismiss="modal">Close
                 </button>
                 <input type="submit" value="Edit"
-                       class="btn btn-primary"  data-bs-dismiss="modal" onclick="updateUser()">
+                       class="btn btn-primary" data-bs-dismiss="modal" onclick="editUser()">
             </div>
         </div>
     </div>
 </div>
 
-<!--    <button type="button" class="btn btn-danger" data-bs-toggle="modal"-->
-<!--            data-bs-target="#deleteWindow" th:attrappend="data-bs-target=${user.id}">-->
-<!--        Delete-->
-<!--    </button>-->
+<!--===========================DELETE==========================-->
+
 <div class="modal fade" id="deleteWindow" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="deleteWindow2">
@@ -293,14 +280,13 @@
                         data-bs-dismiss="modal">Close
                 </button>
                 <input type="submit" value="Delete"
-                       class="btn btn-danger" id="deleteUser"  data-bs-dismiss="modal" onclick="deleteUser()">
+                       class="btn btn-danger" id="deleteUser" data-bs-dismiss="modal" onclick="deleteUser()">
             </div>
         </div>
     </div>
 </div>
 
-
-<script src="/output.js" async></script>
+<script src="/admin.js" async></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
         integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
         crossorigin="anonymous"></script>

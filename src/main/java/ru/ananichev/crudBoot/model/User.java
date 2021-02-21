@@ -1,12 +1,10 @@
 package ru.ananichev.crudBoot.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
@@ -24,7 +22,6 @@ public class User implements UserDetails {
     @Column
     private String lastName;
 
-    @Min(value = 0, message = "Age must be over 0")
     @Column
     private Byte age;
 
@@ -34,8 +31,8 @@ public class User implements UserDetails {
     @Column
     private String password;
 
-//    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)//Избавляет от LazyInitializationException после прохождения аутентификации
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //Избавляет от LazyInitializationException после прохождения аутентификации
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
